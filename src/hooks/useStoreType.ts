@@ -1,12 +1,13 @@
 
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-import { IInitialState } from '../E-Books/Slicer/EBooksSlice';
-
-
-interface IStoreState {
-    eBooks: IInitialState;
-  }
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { IInitialState } from '../E-Books/Slicer/eBooksSlice';
+import { IBookDetail } from '../E-Books/Slicer/eBookDetialSlice';
 
 
-export const useStoreType: TypedUseSelectorHook<IStoreState> = useSelector;
+export type RootState = {
+  eBooks: IInitialState;
+  eBookDetail: IBookDetail
+};
+
+
+export const useStoreType: TypedUseSelectorHook<RootState> = useSelector;

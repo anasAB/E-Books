@@ -1,17 +1,17 @@
 import './App.css';
+import BookDetail from './E-Books/DetailPage/BookDetail';
 import EBooksMainPage from './E-Books/MainPage/EBooksMainPage';
 import { Routes, Route } from "react-router-dom";
-import Books from './E-Books/MainPage/Books';
 
 const App = () => {
 
   return (
-    <>
+    <div className='app'>
       <Routes>
         <Route path="/" element={<EBooksMainPage />} />
-        <Route path="/Books" element={<Books />} />
+        <Route path="/BookDetail" element={<BookDetail />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
