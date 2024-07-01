@@ -22,9 +22,7 @@ export const useBookDetail = (bookId: string) => {
             const serializablePayload = {
                 id: docSnap.id,
                ...docSnap.data(),
-            };
-            console.log('##serializablePayload', serializablePayload);
-    
+            };    
             dispatch(updateBookDetialSlicerState(serializablePayload));
         } else {
             console.log("No such document!");

@@ -61,7 +61,7 @@ interface VolumeInfo {
     textSnippet: string;
   }
   
-  export interface BookObject {
+  export interface BookObject { //TODO replace it wiht IBookObject
     kind: string;
     id: string;
     etag: string;

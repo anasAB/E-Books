@@ -5,14 +5,16 @@ export interface IInitialState {
   category: string;
   ebooks: BookObject[];
   isDataLoading: boolean,
-  favoveritBooksId: string[]
+  favoveritBooks: BookObject[], // TODO replace it with favoveritBooks
+  showFavoveritBooks : boolean
 }
 
 const initialState: IInitialState = {
   category: "",
   ebooks: [],
   isDataLoading: false,
-  favoveritBooksId: []
+  favoveritBooks: [],
+  showFavoveritBooks: false
 }
 
 export const eBooksSlice = createSlice({
@@ -22,6 +24,14 @@ export const eBooksSlice = createSlice({
   reducers: {
           
     updateBookSlicerState: (state: IInitialState, action) => {
+      // if(state.showFavoveritBooks){
+      //   console.log('## Filter now');
+      
+      // }else{
+      //   console.log('## No need for filter');
+        
+      // }
+      
       return {...state, ebooks: [...action.payload] };
     },
 
@@ -33,22 +43,27 @@ export const eBooksSlice = createSlice({
       return {...state, isDataLoading: action.payload };
     },
 
-    updateFavoveritBooksList: (state: IInitialState, action: PayloadAction<string>) => {      
-      if( state.favoveritBooksId.includes(action.payload)) {
-        return {...state, favoveritBooksId: state.favoveritBooksId.filter((id: string) => id!== action.payload)};
+    updateFavoveritBooksList: (state: IInitialState, action) => {  
+      const test = state.favoveritBooks.find(book => book.id === action.payload.id) 
+        
+      if( test) {
+        return {...state, favoveritBooks: state.favoveritBooks.filter((book: BookObject) => book.id !== action.payload.id)};
       }else{
-        return {...state, favoveritBooksId: [...state.favoveritBooksId, action.payload] };
+        return {...state, favoveritBooks: [...state.favoveritBooks, action.payload] };
       }
         
     },
 
+    updateShowFavoveritBooks: (state: IInitialState) => {
+        return {...state, showFavoveritBooks: !state.showFavoveritBooks }
+    }
 
 
   },
 });
 
   // Action creators are generated for each case reducer function
-  export const { updateBookSlicerState, updateCategory, updateLoadingDataStatus, updateFavoveritBooksList } = eBooksSlice.actions
+  export const { updateBookSlicerState, updateCategory, updateLoadingDataStatus, updateFavoveritBooksList, updateShowFavoveritBooks } = eBooksSlice.actions
   
   export default eBooksSlice.reducer
 

@@ -9,7 +9,6 @@ const BookDetail = () =>{
     
     const {selectedBookId,selectedBookDetail} = useStoreType((state) => state.eBookDetail);
     useBookDetail(selectedBookId!)
-    console.log('## Detail', selectedBookDetail);
     
 
     const navigate = useNavigate()

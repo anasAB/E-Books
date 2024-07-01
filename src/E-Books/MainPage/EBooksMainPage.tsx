@@ -8,21 +8,33 @@ import { updateSelectedBookIdState } from '../Slicer/eBookDetialSlice';
 
 import { FcLike, } from "react-icons/fc";
 import { CiHeart } from "react-icons/ci";
-import { updateFavoveritBooksList } from '../Slicer/eBooksSlice';
+import { updateBookSlicerState, updateFavoveritBooksList } from '../Slicer/eBooksSlice';
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
+import { updateBookCart } from '../Slicer/cartSlice';
+import { Fragment } from 'react/jsx-runtime';
+import { useEffect } from 'react';
+import { BsFillCartDashFill } from "react-icons/bs";
+import { BsFillCartPlusFill } from "react-icons/bs";
+import { BsFillCartCheckFill } from "react-icons/bs";
+
 
 const EBooksMainPage = () => {
 
-    const { category, ebooks, favoveritBooksId } = useStoreType((state) => state.eBooks);
-
-    console.log('## Store', ebooks);
+    const { bookCart } = useStoreType((state) => state.bookCart);
+    const { category, ebooks, favoveritBooks, showFavoveritBooks } = useStoreType((state) => state.eBooks);
 
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isDataLoading } = useBooks()
+
+    // Will update the eBooks slicer to favoverit Books
+    useEffect(() => {
+         dispatch(updateBookSlicerState(favoveritBooks))
+        }
+    ,[showFavoveritBooks])
 
 
     const handleSelectedBook = (selectedBookId: string) => {
@@ -31,9 +43,10 @@ const EBooksMainPage = () => {
     }
 
 
-    const bookFavoveritHandler = (bookId: string) => dispatch(updateFavoveritBooksList(bookId));
+    const bookFavoveritHandler = (bookId: BookObject) => dispatch(updateFavoveritBooksList(bookId)) ;
 
-
+    const addToBookCart = (book:BookObject) => dispatch(updateBookCart(book))
+    
 
     const calculateStarHandler = (averageRating: number) => {
         const fullStars = Math.floor(averageRating);
@@ -42,13 +55,13 @@ const EBooksMainPage = () => {
         return (
             <>
                 {[...Array(fullStars + halfStars)].map((_, index) => (
-                    <>
+                    <Fragment key={Math.random()}>
                         {index < fullStars ? (
                             <FaStar key={index} color="gold" />
                         ) : (
                             <FaStarHalfAlt key={index} color="gold" />
                         )}
-                    </>
+                    </Fragment>
                 ))}
 
                 {[...Array(5 - fullStars - halfStars)].map((_, index) => (
@@ -58,8 +71,26 @@ const EBooksMainPage = () => {
         );
     };
 
-    return (
+    const checkIfBookInCart = (id:string) => {
+        const findBook = bookCart.find(item => item.id === id)
 
+        if(findBook) {
+            return <BsFillCartDashFill style={{color:"red"}}/>
+        }
+        return <BsFillCartPlusFill/>
+    }
+
+    
+    const checkIfBookInFavoverit = (id:string) => {
+        const findBook = favoveritBooks.find(item => item.id === id)
+
+        if(findBook) {
+            return <FcLike size="1.2em" />
+        }
+        return <CiHeart color="blue" aria-level={2} />
+    }
+    
+    return (
         <div className='card__container'>
             {ebooks && ebooks.map((book: BookObject) => {
                 return (
@@ -71,7 +102,9 @@ const EBooksMainPage = () => {
                             </div>
 
                             <div className="card__heart-info" >
-                                <p className='card__heart' onClick={() => bookFavoveritHandler(book.id)}>{favoveritBooksId.includes(book.id) ? <FcLike size="1.2em" /> : <CiHeart color="blue" aria-level={2} />}</p>
+                                <p className='card__heart' onClick={() => bookFavoveritHandler(book)}>
+                                   {checkIfBookInFavoverit(book.id)}
+                                </p>
                             </div>
                         </div>
 
@@ -82,26 +115,28 @@ const EBooksMainPage = () => {
                             </div>
 
 
-                            <h3 className="card__title">{book.volumeInfo.title}</h3>
-                            {book.volumeInfo.authors.map((author, index) => {
-                                const lastAuthor = index === book.volumeInfo.authors.length - 1;
-
-                                return (
-                                    <span className="card__by" key={author}>
-                                        <a href="#" className="card__author" title="author">{author}</a>
-                                        {!lastAuthor && <a href="#" className="card__author" title="author">&amp;</a>}
-                                    </span>
-
-                                )
-                            })}
-                            {/* <p className='book-description'>{book.volumeInfo.description}</p> */}
-                          
-                        </div>
-                        <div className='card__footer'>
-                            <button onClick={() => handleSelectedBook(book.id)}>Read more</button>
-
+                            <p className="card__title">{book.volumeInfo.title}</p>
+                            <div className='book-description'>
+                                {book.volumeInfo.authors.map((author, index) => {
+                                    const lastAuthor = index === book.volumeInfo.authors.length - 1;
+                                    return (
+                                        <span className="card__by" key={author}>
+                                            <a href="#" className="card__author" title="author">{author}</a>
+                                            {!lastAuthor && <a href="#" className="card__author" title="author">&amp;</a>}
+                                        </span>
+                                    )
+                                })}
                             </div>
+                           
+
+                        </div>
+
+                        <div className='card__footer'>
+                            <button onClick={() => handleSelectedBook(book.id)}> Read more </button>
+                            <button onClick={() => addToBookCart(book)}>{checkIfBookInCart(book.id)}</button>
+                        </div>
                     </div>
+
                 )
             }
             )}

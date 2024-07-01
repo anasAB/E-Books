@@ -4,12 +4,15 @@ import { getDocs, collection, query, where, doc, setDoc } from "firebase/firesto
 import { updateBookSlicerState, updateLoadingDataStatus } from "../E-Books/Slicer/eBooksSlice";
 import { sampleData } from "../sampleData";
 import { db } from "../config/firebase";
+import { useStoreType } from "./useStoreType";
 
 
 
 export const useBooks = () => {    
     const dispatch = useDispatch()
     const [isDataLoading, setIsDataLoading] = useState(false);
+    const { showFavoveritBooks } = useStoreType((state) => state.eBooks);
+
 
     // const database = db.database();
 
@@ -39,10 +42,12 @@ export const useBooks = () => {
   
 
         
-        useEffect(() => {            
+        useEffect(() => {        
+            if(showFavoveritBooks) return
+
             getData();
             // seedData()
-        }, []);
+        }, [showFavoveritBooks]);
     
     
       return {isDataLoading }
