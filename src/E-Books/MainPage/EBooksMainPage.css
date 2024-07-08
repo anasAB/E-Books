@@ -1,3 +1,171 @@
+.main_page{
+    display: flex;
+    max-width: 1110px;
+    margin: 0 auto;
+}
+
+.main_filter{
+    flex: 1 0 auto;
+    max-width: 20%;
+}
+
+.main_cards{
+    flex: 1 1 auto;
+    padding-left: 16px;
+    min-width: 0;
+}
+
+.card1{
+    border-color: #003b95;
+    overflow: visible;
+    margin: 4px 0;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.property_card_container{
+    --leftColumnWidth: 240px;
+    display: flex;
+}
+
+.a89c002b3e{
+    flex: 0 0 auto;
+    width: 25%;
+}
+
+
+.card-info-right{
+    flex: 1 1 auto;
+    margin-left: 16px;
+    width: 75%;
+}
+
+.header{
+    --bui_stack_gap: calc(12 * 2);
+    flex-grow: initial;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    display: flex;
+}
+
+
+.ac58e93660{
+    max-width: 75%;
+}
+
+
+
+.daa8593c50{
+    flex-shrink: 1;
+    flex-basis: 100%;
+    flex-grow: 1;
+    color: #003b95;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    font-family: "Blue Sans BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif";
+    display: flex;
+    gap: 5px;
+}
+
+.tag,  .language_tag {
+   margin: 5px;
+}
+
+.tag span, .language_tag span{
+    padding: 4px 8px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 5px;
+    font-family: "Blue Sans BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif";
+}
+
+.tag span {
+    background-color: #142ea1;
+}
+
+.language_tag span {
+    background-color: #4358b6;
+}
+
+
+
+.right_header{
+    max-width: 25%;
+    align-items: center;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.averageRating{
+    background: #003b95;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: baseline;
+    border-radius: calc(32px / 5.5) calc(32px / 5.5) calc(32px / 5.5) 0;
+    height: 32px;
+    width: 32px;
+}
+
+.ratingsCount{
+    font-size: 12px;
+    font-weight: 400px;
+    line-height: 18px;
+}
+
+
+.card-footer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    flex-basis: 100%;
+}
+
+.card-info, .card-price{
+    width: 50%;
+    min-width: 50%;
+}
+
+.card-price {
+    /* align-items: center;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row; */
+    text-align: right;
+}
+
+.c780541967{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #d4111e;
+    text-decoration: line-through;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.f53c51ec80{
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 500;
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+/* ============ */
+
 .card__container {
     width: 100%;
     display: flex;
@@ -45,14 +213,6 @@
     border-top-left-radius: 12px;
 }
 
-.tag {
-    padding: 4px 8px;
-    border: 1px solid #142ea1;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #788697;
-}
 
 /* Style div elements that have class equal to name */
 .card__title {
@@ -161,12 +321,12 @@ button:hover {
   font-family: sans-serif;
 }
 
-.title {
+/* .title {
   font-size: 1.5em;
   font-weight: 900;
   text-align: center;
   margin: 0;
-}
+} */
 
 .flip-card-inner {
   position: relative;
