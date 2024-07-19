@@ -8,7 +8,7 @@ export interface IBookDetail {
 
 const initialState: IBookDetail = {
   selectedBookDetail: null,
-  selectedBookId: null
+  selectedBookId: null,
 }
 
 export const eBookDetialSlice = createSlice({
@@ -18,15 +18,15 @@ export const eBookDetialSlice = createSlice({
   reducers: {
     // Update BookDetail Object
     updateBookDetialSlicerState: (state: IBookDetail, action) => {
-      return { ...state, ...action.payload };
+      return { ...state, selectedBookDetail: action.payload };
     },
 
     // Update BookDetail ID
-    updateSelectedBookIdState: (state: IBookDetail, action) => {
-      state.selectedBookId = action.payload; // Directly update the state property
+    updateSelectedBookIdState: (state: IBookDetail, action) => {            
+      state.selectedBookId = action.payload;
     },
 
-
+    
   },
 });
 

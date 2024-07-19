@@ -7,9 +7,7 @@ import { updateBookDetialSlicerState } from "../E-Books/Slicer/eBookDetialSlice"
 
 
 
-export const useBookDetail = (bookId: string) => {
-
-    
+export const useBookDetail = (bookId: string) => { // TODO rename this hook to represent what is dose 
     const dispatch = useDispatch()
 
     const getData = async () => {
@@ -35,8 +33,6 @@ export const useBookDetail = (bookId: string) => {
 
 
     useEffect(() => {
-        console.log('### BookDetail UseEffect');
-
         getData();
     }, []);
 }

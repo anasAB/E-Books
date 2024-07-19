@@ -16,14 +16,13 @@
 }
 
 .card1{
-    border-color: #003b95;
     overflow: visible;
     margin: 4px 0;
     border-radius: 8px;
-    border: 1px solid;
+    border: 1px solid lightgray;
     padding: 10px;
-    box-sizing: border-box;
     display: flex;
+    max-height: 19rem;
 }
 
 .property_card_container{
@@ -43,7 +42,7 @@
     width: 75%;
 }
 
-.header{
+.card-info-header{
     --bui_stack_gap: calc(12 * 2);
     flex-grow: initial;
     flex-wrap: nowrap;
@@ -51,6 +50,7 @@
     align-items: flex-start;
     justify-content: space-between;
     display: flex;
+    align-items: center;
 }
 
 
@@ -58,111 +58,147 @@
     max-width: 75%;
 }
 
-
-
-.daa8593c50{
+.daa8593c50 {
     flex-shrink: 1;
     flex-basis: 100%;
     flex-grow: 1;
     color: #003b95;
     font-size: 20px;
-    font-weight: 700;
     line-height: 28px;
-    font-family: "Blue Sans BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif";
     display: flex;
     gap: 5px;
 }
 
-.tag,  .language_tag {
-   margin: 5px;
+.lang_cat{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px
 }
 
-.tag span, .language_tag span{
+
+.category{
     padding: 4px 8px;
     border-radius: 50px;
-    font-weight: 600;
     color: #fff;
     font-size: 12px;
     line-height: 18px;
     margin: 5px;
-    font-family: "Blue Sans BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif";
 }
 
-.tag span {
+.category {
     background-color: #142ea1;
+    border-radius: calc(32px / 5.5) calc(32px / 5.5) calc(32px / 5.5) 0;
 }
-
-.language_tag span {
-    background-color: #4358b6;
-}
-
 
 
 .right_header{
-    max-width: 25%;
-    align-items: center;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
     gap: 5px;
 }
 
 .averageRating{
-    background: #003b95;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     vertical-align: baseline;
     border-radius: calc(32px / 5.5) calc(32px / 5.5) calc(32px / 5.5) 0;
-    height: 32px;
-    width: 32px;
+    background-color: #003b95;
+    color:  #fff;
+    font-size: 14px; 
+    padding: 6px;
 }
 
 .ratingsCount{
     font-size: 12px;
-    font-weight: 400px;
     line-height: 18px;
 }
 
+.reviews{
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
 
 .card-footer{
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     flex-direction: row;
-    flex-basis: 100%;
+    padding: 20px 10px;
 }
 
-.card-info, .card-price{
-    width: 50%;
-    min-width: 50%;
-}
-
-.card-price {
-    /* align-items: center;
+.card-price{
+    min-width: 25%;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
-    flex-direction: row; */
     text-align: right;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: flex-end;
 }
 
-.c780541967{
+.card-info {
+    width: 75%;
+    min-width: 75%;
     font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
+    line-height:18px
+}
+
+
+.offer_price{
+    font-size: 12px;
     color: #d4111e;
     text-decoration: line-through;
     margin: 0 3px;
-    display: inline-block;
 }
 
-.f53c51ec80{
-    display: inline-block;
-    white-space: nowrap;
-    font-weight: 500;
-    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+.saving{
+    font-size: 12px;
+    border-radius: calc(32px / 5.5) calc(32px / 5.5) calc(32px / 5.5) 0;
+    background-color:rgb(42, 161, 42);
+    color: #fff;
+    padding: 5px;
+}
+
+.not-bad {
+    background-color: rgb(236, 175, 60, 0.5)
+}
+
+.good {
+    background-color:rgb(42, 161, 42, 0.5)
+}
+
+.very-good{
+    background-color:rgb(42, 161, 42, 0.9)
+}
+
+.detial_button{
+    background-color: lightgray;
 
 }
+
+.action_buttons{
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    gap: 5px;
+}
+
+.action_buttons button {
+    color: black;
+    background-color: rgb(231, 229, 229);
+    padding: 11px;
+    border-radius: 8px; 
+    transition-property: background-color, color; 
+}
+
+
 
 /* ============ */
 
@@ -204,8 +240,8 @@
 }
 
 .card__img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     border-radius: 12px;
     background-size: cover;
     background-position: center;
@@ -213,40 +249,22 @@
     border-top-left-radius: 12px;
 }
 
+.authors{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    color: #003b95;
+}
+
 
 /* Style div elements that have class equal to name */
-.card__title {
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Roboto Slab', serif;
-}
 
-
-.card__by {
-    /* font-size: 12px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
-    overflow: hidden;
-    max-height: 20px; */
-    font-size: 12px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
-    overflow: hidden;
-    white-space: nowrap; /* Prevents the text from wrapping */
-    text-overflow: ellipsis; /* Adds the ellipsis when text overflows */
-    min-width: 100px; /* Adjust this value based on your design needs */
-    max-width: 100%; /* Ensures the element takes up the full width of its container */
-}
 
 .book-description {
     overflow: hidden;
     max-height: 55px;
-}
-
-.card__author {
-    font-weight: 600;
-    text-decoration: none;
-    color: #AD7D52;
 }
 
 .card__stars_category{
@@ -261,17 +279,12 @@
     justify-content: space-between;
 }
 
-.card__heart {
-    padding-left: 10px;
-}
-
 .card__rating {
     width: 90px;
     display: flex;
     justify-content: space-evenly;
     padding-right: 10px;
     color: #142ea1;
-
 }
 
 
@@ -289,9 +302,7 @@ button {
     border: none;
     padding: 12px 24px;
     border-radius: 50px;
-    font-weight: 600;
-    /* color: #0077ff; */
-    /* background-color: #e0efff; */
+
 
     /* Button is inline-block element by default, it need to have block display for margin: 0 auto; to work */
     margin: 0 auto;
@@ -306,12 +317,6 @@ button {
     padding: 16px 8px 8px 8px;
 }
 
-/* Add style when button is focused or hovered */
-button:focus,
-button:hover {
-    /* background-color: #0077ff; */
-    /* color: #e0efff; */
-}
 
 .flip-card {
   background-color: transparent;
@@ -321,12 +326,7 @@ button:hover {
   font-family: sans-serif;
 }
 
-/* .title {
-  font-size: 1.5em;
-  font-weight: 900;
-  text-align: center;
-  margin: 0;
-} */
+
 
 .flip-card-inner {
   position: relative;

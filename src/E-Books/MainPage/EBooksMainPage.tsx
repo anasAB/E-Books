@@ -5,7 +5,6 @@ import { useStoreType } from '../../hooks/useStoreType';
 import { useBooks } from '../../hooks/useBooks';
 import { BookObject } from '../../types/books';
 import { updateSelectedBookIdState } from '../Slicer/eBookDetialSlice';
-
 import { FcLike, } from "react-icons/fc";
 import { CiHeart } from "react-icons/ci";
 import { updateBookSlicerState, updateFavoveritBooksList } from '../Slicer/eBooksSlice';
@@ -17,36 +16,34 @@ import { Fragment } from 'react/jsx-runtime';
 import { useEffect } from 'react';
 import { BsFillCartDashFill } from "react-icons/bs";
 import { BsFillCartPlusFill } from "react-icons/bs";
-import { BsFillCartCheckFill } from "react-icons/bs";
+import Modal from '../../components/UI/Modal';
+import BookDetail from '../DetailPage/BookDetail';
 
 
 const EBooksMainPage = () => {
 
     const { bookCart } = useStoreType((state) => state.bookCart);
-    const { category, ebooks, favoveritBooks, showFavoveritBooks } = useStoreType((state) => state.eBooks);
+    const { ebooks, favoveritBooks, showFavoveritBooks } = useStoreType((state) => state.eBooks);
+    const { selectedBookId } = useStoreType((state) => state.eBookDetail);
 
+    
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { isDataLoading } = useBooks()
 
     // Will update the eBooks slicer to favoverit Books
     useEffect(() => {
-         dispatch(updateBookSlicerState(favoveritBooks))
-        }
-    ,[showFavoveritBooks])
+        dispatch(updateBookSlicerState(favoveritBooks))
+    }, [showFavoveritBooks])
 
 
-    const handleSelectedBook = (selectedBookId: string) => {
-        dispatch(updateSelectedBookIdState(selectedBookId))
-        navigate(`/BookDetail`)
-    }
+   
 
 
-    const bookFavoveritHandler = (bookId: BookObject) => dispatch(updateFavoveritBooksList(bookId)) ;
+    const bookFavoveritHandler = (bookId: BookObject) => dispatch(updateFavoveritBooksList(bookId));
 
-    const addToBookCart = (book:BookObject) => dispatch(updateBookCart(book))
-    
+    const addToBookCart = (book: BookObject) => dispatch(updateBookCart(book))
+
 
     const calculateStarHandler = (averageRating: number) => {
         const fullStars = Math.floor(averageRating);
@@ -71,150 +68,146 @@ const EBooksMainPage = () => {
         );
     };
 
-    const checkIfBookInCart = (id:string) => {
+    const checkIfBookInCart = (id: string) => {
         const findBook = bookCart.find(item => item.id === id)
 
-        if(findBook) {
-            return <BsFillCartDashFill style={{color:"red"}}/>
+        if (findBook) {
+            return <BsFillCartDashFill style={{ color: "green" }} />
         }
-        return <BsFillCartPlusFill/>
+        return <BsFillCartPlusFill />
     }
 
-    
-    const checkIfBookInFavoverit = (id:string) => {
+
+    const checkIfBookInFavoverit = (id: string) => {
         const findBook = favoveritBooks.find(item => item.id === id)
 
-        if(findBook) {
-            return <FcLike size="1.2em" />
+        if (findBook) {
+            return <FcLike size="1em" />
         }
-        return <CiHeart color="blue" aria-level={2} />
+        return <CiHeart size="0.95em" color="blue" aria-level={2} />
     }
 
     const calculateSavings = (oldPrice: number, newDiscountedPrice: number) => {
-          // Calculate the difference between the old price and the new discounted price
         const difference = oldPrice - newDiscountedPrice;
-        
+
         // Calculate the percentage savings
         const percentageSavings = (difference / oldPrice) * 100;
-        
-        return percentageSavings;
+        // return  percentageSavings.toFixed(2) + '' + '%' ;
+        let saveingType = ""
+        if(percentageSavings > 0  && percentageSavings < 10) saveingType = "not-bad"
+        if(percentageSavings > 10  && percentageSavings < 20) saveingType = "good"
+        if(percentageSavings > 20  && percentageSavings < 30) saveingType = "very-good"
+
+        return  <span className={`saving  ${saveingType}`}>{percentageSavings.toFixed(2) + '' + '%'} </span>;
     }
+
+    const openPreviewLink = (linkUrl: string) => {
+        window.open(linkUrl, '_blank', 'noopener,noreferrer,height=600,width=800');
+    };
+
+    const displayAuthors = (authors: string[]) => {
+        return ( authors.length > 3 ? (
+          (  <>
+                {authors.slice(0, 3).map((author, index) => (
+                        <span key={index}>
+                            <span>{author}</span>
+                            <span> {index !== 2 && <span title="author"> &amp; </span>}</span>
+                        </span>
+                    ))}
+                ...
+            </>)
+        ) : (
+             authors.map((author, index) => (
+                <span key={index}>
+                    <span>{author}</span>
+                    {index !== authors.length - 1 && <span title="author"> &amp; </span>}
+                </span>
+            ))
+        ))
+    } 
+    
+    const opebBookDetials = (selectedBookId: string) => dispatch(updateSelectedBookIdState(selectedBookId))
+    
+
     
     return (
         <div className='main_page'>
             <div className='main_filter'>FILTER</div>
             <div className='main_cards'>
-            {ebooks && ebooks.map((book: BookObject) => {
-                return (
-                    <div className='card1'>
-                    {/* <div className='property_card_container'></div> */}
-                    <div className='a89c002b3e'>
-                        <a href={book.volumeInfo.imageLinks.smallThumbnail}>
-                            <img className='card__img' src={book.volumeInfo.imageLinks.smallThumbnail} alt={book.volumeInfo.subtitle} /> </a>
-                    </div>
-
-                    <div className='card-info-right'>
-                        <div className='header'>
-                            <div className='ac58e93660'>
-                                <p className="daa8593c50"> {book.volumeInfo.title} </p>
-                                
-                                <span > {calculateStarHandler(book.volumeInfo.averageRating)} </span>
-                                <div className='language_tag'><span> {book.volumeInfo.language.toUpperCase()} </span></div>
-                                <div className='tag'> {book.volumeInfo.categories?.map(category => (<span  key={category}> {category} </span>))} </div>
+                {ebooks && ebooks.map((book: BookObject) => {
+                    return (
+                        <div className='card1' key={book.id}>
+                            <div className='a89c002b3e'>
+                                <a href={book.volumeInfo.imageLinks.smallThumbnail}>
+                                    <img className='card__img' src={book.volumeInfo.imageLinks.smallThumbnail} alt={book.volumeInfo.subtitle} /> </a>
                             </div>
 
-                            <div className='right_header'>
-                                <div className='averageRating'> {book.volumeInfo.averageRating}</div>
-                                <div className='ratingsCount'> {book.volumeInfo.ratingsCount} reviews</div>
-                                
-                            </div>
-                           
-                        </div>
+                            <div className='card-info-right'>
+                                <div className='card-info-header'>
+                                    <div className='ac58e93660'>
+                                        <div>
+                                            <p className="daa8593c50"> {book.volumeInfo.title} </p>
+                                        </div>
 
-                        <div>
-                            <a href={book.volumeInfo.previewLink}>previewLink</a>
-                            <div className='card-footer'>
-                                <div className='card-info' style={{backgroundColor:"blue"}}>info</div>
-                                <div className='card-price'>
-                                <span className="c780541967">{book.saleInfo.offers && book.saleInfo.offers[0].listPrice.currencyCode}&nbsp;{book.saleInfo.offers && book.saleInfo.offers[0].listPrice.amountInMicros}</span>
-                                <div className="f53c51ec80 e8f82081af">
-                                    <span className="f53c51ec80">
-                                        {book.saleInfo.offers && book.saleInfo.offers[0].retailPrice.currencyCode}&nbsp;{book.saleInfo.offers && book.saleInfo.offers[0].retailPrice.amountInMicros}
-                                    </span>
+                                        <div className='lang_cat'>
+                                            {book.volumeInfo.categories?.map(category => (<span className='category' key={category}> {category.toUpperCase()} </span>))}
+                                        
+                                            <p className='card__heart' onClick={() => bookFavoveritHandler(book)}>
+                                                {checkIfBookInFavoverit(book.id)}
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div className='right_header'>
+                                        <div className='reviews'>
+                                            <span className='ratingsCount'> {book.volumeInfo.ratingsCount} reviews</span>
+                                            <span className='averageRating'> {book.volumeInfo.averageRating}</span>
+                                        </div>
+                                        <div>
+                                        <span> {calculateStarHandler(book.volumeInfo.averageRating)} </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                {book.saleInfo.offers && calculateSavings(book.saleInfo.offers[0].listPrice.amountInMicros, book.saleInfo.offers[0].retailPrice.amountInMicros)}
+
+                                <div className='card-footer'>
+                                    <div className='card-info'>
+                                        <p>{book.volumeInfo.publishedDate}</p>
+                                        <div className='authors'>{displayAuthors(book.volumeInfo.authors)}</div>
+                                        
+                                    </div>
+                                        {book.saleInfo.offers && 
+                                        <div className='card-price'>
+                                        <div>
+                                            <span className="offer_price">{ book.saleInfo.offers[0].listPrice.currencyCode}&nbsp;{book.saleInfo.offers[0].listPrice.amountInMicros}</span>
+                                            <span>
+                                                    {book.saleInfo.offers[0].retailPrice.currencyCode}&nbsp;{book.saleInfo.offers[0].retailPrice.amountInMicros}
+                                            </span>
+                                        </div>
+                                        { calculateSavings(book.saleInfo.offers[0].listPrice.amountInMicros, book.saleInfo.offers[0].retailPrice.amountInMicros)}
+                                    </div>
+                                        }
+                                  
                                 </div>
-                                
-                                {/* <div className='card-price'>{book.saleInfo?.offers}</div>
-                                <div className='card-price'>{book.saleInfo?.retailPrice}</div>
-                                <div className='card-price'>{book.saleInfo.saleability}</div> */}
+
+                                <div className='action_buttons'>
+                                        <button className='preview_book' onClick={() => openPreviewLink(book.accessInfo.webReaderLink)}> {book.accessInfo.viewability === "PARTIAL" ? "Review some Pages": "Review All Pages"}  </button>
+                                        <button className='detial_button' onClick={() => opebBookDetials(book.id)}> Book Detials </button>
+                                        <button className='preview_book' onClick={() => addToBookCart(book)}>{checkIfBookInCart(book.id)}</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                  
-                </div>
-        
-                )
-            })}
-
-            
-          
-
+                    )
+                })}
             </div>
+            {selectedBookId && (
+            <Modal>
+                <BookDetail />
+            </Modal>
+            )}
+            
         </div>
-        // <div className='card__container'>
-        //     {ebooks && ebooks.map((book: BookObject) => {
-        //         return (
-        //             <div className="card" key={book.id}>
-
-        //                 <div className='card__side__details'>
-        //                     <div className='card__img__container'>
-        //                         <img className='card__img' src={book.volumeInfo.imageLinks.smallThumbnail} alt={book.volumeInfo.subtitle} />
-        //                     </div>
-
-        //                     <div className="card__heart-info" >
-        //                         <p className='card__heart' onClick={() => bookFavoveritHandler(book)}>
-        //                            {checkIfBookInFavoverit(book.id)}
-        //                         </p>
-        //                     </div>
-        //                 </div>
-
-        //                 <div className="card__details">
-        //                     <div className='card__stars_category'>
-                                // <div> {book.volumeInfo.categories?.map(category => (<span className="tag" key={category}> {category} </span>))} </div>
-        //                         <div> {calculateStarHandler(book.volumeInfo.averageRating)} </div>
-        //                     </div>
-
-
-        //                     <p className="card__title">{book.volumeInfo.title}</p>
-        //                     <div className='book-description'>
-        //                         {book.volumeInfo.authors.map((author, index) => {
-        //                             const lastAuthor = index === book.volumeInfo.authors.length - 1;
-        //                             return (
-        //                                 <span className="card__by" key={author}>
-        //                                     <a href="#" className="card__author" title="author">{author}</a>
-        //                                     {!lastAuthor && <a href="#" className="card__author" title="author">&amp;</a>}
-        //                                 </span>
-        //                             )
-        //                         })}
-        //                     </div>
-                           
-
-        //                 </div>
-
-        //                 <div className='card__footer'>
-        //                     <button onClick={() => handleSelectedBook(book.id)}> Read more </button>
-        //                     <button onClick={() => addToBookCart(book)}>{checkIfBookInCart(book.id)}</button>
-        //                 </div>
-        //             </div>
-
-        //         )
-        //     }
-        //     )}
-        // </div>
     )
 }
 
 export default EBooksMainPage
-
-

@@ -1,38 +1,64 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
-import '../MainPage/EBooksMainPage.css'
+import { useDispatch } from 'react-redux';
+import './bookDetail.css'
 import { useStoreType } from '../../hooks/useStoreType';
 import { useBookDetail } from '../../hooks/useBookDetail';
+import { updateSelectedBookIdState } from '../Slicer/eBookDetialSlice';
+import { GiWhiteBook } from "react-icons/gi";
+import { calculateSavings } from '../../utils/ebookActions';
 
-const BookDetail = () =>{
-    
-    const {selectedBookId,selectedBookDetail} = useStoreType((state) => state.eBookDetail);
+const BookDetail = () => {
+    const dispatch = useDispatch()
+
+    const { selectedBookId, selectedBookDetail } = useStoreType((state) => state.eBookDetail);
+
     useBookDetail(selectedBookId!)
-    
 
-    const navigate = useNavigate()
+    if(!selectedBookDetail) return null
 
-    const backHandler = () => navigate(`/`)
+    const closeHandler = () => dispatch(updateSelectedBookIdState(null))
 
+ 
+
+
+    console.log('##selectedBookDetail',selectedBookDetail);
     
     return (
-        <div className='wrapper'>
-        <h1>books</h1>
-            <button onClick={backHandler}>BACK</button>
-        {/* {books && books.map((topic: IBooks) => {
-            return (
-                <div key={topic.id} className='card' >
-                    <img className="img" src={topic.volumeInfo.imageLinks ? topic.volumeInfo.imageLinks.smallThumbnail :
-                    ''
-                    } alt={topic.id} />
-                    <h1>{topic.volumeInfo.categories}</h1>
-                </div>
-            )
-        }
-        )} */}
-        </div>
-     )
- }
+        <div>
 
- export default BookDetail
+            <div className='top'>
+                <div className=''>
+                    <img className='card-picture-img' src={selectedBookDetail.volumeInfo.imageLinks.smallThumbnail} alt={selectedBookDetail.volumeInfo.subtitle} />
+                </div>
+
+                <div className='top_info'>
+                        <span className='title'>{selectedBookDetail.volumeInfo.title}</span>
+                      
+                        <span>Published On: {selectedBookDetail.volumeInfo.publishedDate}</span>
+                        <span>Publisher: {selectedBookDetail.volumeInfo.publisher} </span>
+                        <span>Page Count: {selectedBookDetail.volumeInfo.pageCount} </span>
+                        {selectedBookDetail.saleInfo.offers && `Discount:` + calculateSavings(selectedBookDetail.saleInfo?.offers[0].listPrice.amountInMicros, selectedBookDetail.saleInfo.offers[0].retailPrice.amountInMicros)}
+                
+                </div>
+
+                {/* <div className='book_info'>
+                    
+                    <span>description:{selectedBookDetail.volumeInfo.description}</span>
+                </div>
+                <div className=''>
+                    <span>{selectedBookDetail.saleInfo.isEbook && <a target="_blank" rel="noopener noreferrer" href={selectedBookDetail.saleInfo.buyLink}> <GiWhiteBook color='green'/></a>}</span>
+
+                </div> */}
+            </div>
+
+            <div className='footer'>
+
+            </div>
+
+            <button className='card-button' onClick={closeHandler}>BACK</button>
+    </div>
+
+    )
+}
+
+export default BookDetail
