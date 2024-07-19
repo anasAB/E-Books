@@ -6,6 +6,7 @@ import { useBookDetail } from '../../hooks/useBookDetail';
 import { updateSelectedBookIdState } from '../Slicer/eBookDetialSlice';
 import { GiWhiteBook } from "react-icons/gi";
 import { calculateSavings } from '../../utils/ebookActions';
+import Button from '@mui/material/Button';
 
 const BookDetail = () => {
     const dispatch = useDispatch()
@@ -54,7 +55,7 @@ const BookDetail = () => {
             <div className='footer'>
 
             </div>
-
+            <Button variant="contained">Hello world</Button>;
             <button className='card-button' onClick={closeHandler}>BACK</button>
     </div>
 
