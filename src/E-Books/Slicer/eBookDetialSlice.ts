@@ -22,11 +22,11 @@ export const eBookDetialSlice = createSlice({
     },
 
     // Update BookDetail ID
-    updateSelectedBookIdState: (state: IBookDetail, action) => {            
+    updateSelectedBookIdState: (state: IBookDetail, action) => {
       state.selectedBookId = action.payload;
     },
 
-    
+
   },
 });
 
