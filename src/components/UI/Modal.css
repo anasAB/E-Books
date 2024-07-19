@@ -1,0 +1,48 @@
+
+  .modal {
+    position: fixed;
+    text-align: center;
+    height: 100%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 14px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 30;
+    display: block;
+  }
+  
+  @media (min-width: 768px) {
+    .modal {
+      width: 40rem;
+      left: calc(85% - 19rem);
+    }
+  }
+  
+  .open_modal{
+    animation: slide-left 300ms ease-in-out forwards;
+  }
+  @keyframes slide-left {
+    from {
+      opacity: 0;
+      transform: translatex(0);
+    }
+    to {
+      opacity: 1;
+      transform: translatex(-3rem);
+    }
+  }
+
+.close_modal{
+  animation: slide-up 300ms ease-in backwards;
+}
+  @keyframes slide-up {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-3rem);
+    }
+  }
+  

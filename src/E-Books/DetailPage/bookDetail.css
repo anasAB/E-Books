@@ -1,0 +1,64 @@
+.wrapper {
+    width: 96%;
+    margin: 0 auto;
+    max-width: 400px;
+}
+  
+@media (min-width: 880px) {
+    .wrapper {
+      max-width: 860px;
+    }
+}
+
+.top{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    margin: 20px;
+    gap: 5px;
+}
+
+.imag-card{
+    display: flex;
+    flex: 0 0 auto;
+    width: 70%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.top_info{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 16px;
+    margin-left: 5px;
+}
+
+.book_info{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    flex-shrink: 1;
+    flex-basis: 100%;
+    flex-grow: 1;
+    color: #003b95;
+    font-size: 20px;
+    line-height: 28px;
+    display: flex;
+    gap: 5px;
+}
