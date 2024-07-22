@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { BookObject } from '../../types/books';
+import { createSlice } from '@reduxjs/toolkit'
+import { BookObject } from '../../types/books'
 
 export interface IInitialState {
-  category: string;
-  ebooks: BookObject[];
-  isDataLoading: boolean,
-  favoveritBooks: BookObject[], // TODO replace it with favoveritBooks
+  category: string
+  ebooks: BookObject[]
+  isDataLoading: boolean
+  favoveritBooks: BookObject[] // TODO replace it with favoveritBooks
   showFavoveritBooks: boolean
 }
 
 const initialState: IInitialState = {
-  category: "",
+  category: '',
   ebooks: [],
   isDataLoading: false,
   favoveritBooks: [],
@@ -22,7 +22,6 @@ export const eBooksSlice = createSlice({
   initialState,
 
   reducers: {
-
     updateBookSlicerState: (state: IInitialState, action) => {
       // if(state.showFavoveritBooks){
       //   console.log('## Filter now');
@@ -32,38 +31,46 @@ export const eBooksSlice = createSlice({
 
       // }
 
-      return { ...state, ebooks: [...action.payload] };
+      return { ...state, ebooks: [...action.payload] }
     },
 
     updateCategory: (state: IInitialState, action) => {
-      return { ...state, category: action.payload };
+      return { ...state, category: action.payload }
     },
 
     updateLoadingDataStatus: (state: IInitialState, action) => {
-      return { ...state, isDataLoading: action.payload };
+      return { ...state, isDataLoading: action.payload }
     },
 
     updateFavoveritBooksList: (state: IInitialState, action) => {
-      const test = state.favoveritBooks.find(book => book.id === action.payload.id)
+      const test = state.favoveritBooks.find((book) => book.id === action.payload.id)
 
       if (test) {
-        return { ...state, favoveritBooks: state.favoveritBooks.filter((book: BookObject) => book.id !== action.payload.id) };
+        return {
+          ...state,
+          favoveritBooks: state.favoveritBooks.filter((book: BookObject) => book.id !== action.payload.id)
+        }
       } else {
-        return { ...state, favoveritBooks: [...state.favoveritBooks, action.payload] };
+        return {
+          ...state,
+          favoveritBooks: [...state.favoveritBooks, action.payload]
+        }
       }
-
     },
 
     updateShowFavoveritBooks: (state: IInitialState) => {
       return { ...state, showFavoveritBooks: !state.showFavoveritBooks }
     }
-
-
-  },
-});
+  }
+})
 
 // Action creators are generated for each case reducer function
-export const { updateBookSlicerState, updateCategory, updateLoadingDataStatus, updateFavoveritBooksList, updateShowFavoveritBooks } = eBooksSlice.actions
+export const {
+  updateBookSlicerState,
+  updateCategory,
+  updateLoadingDataStatus,
+  updateFavoveritBooksList,
+  updateShowFavoveritBooks
+} = eBooksSlice.actions
 
 export default eBooksSlice.reducer
-

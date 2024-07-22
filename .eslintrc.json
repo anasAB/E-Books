@@ -4,7 +4,19 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:react/jsx-runtime",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "react",
+        "prettier",
+        "import",
+        "prefer-arrow-functions",
+        "filename-rules",
+        "sort-keys-fix",
+        "simple-import-sort",
+        "sort-destructure-keys"
     ],
     "settings": {
         "react": {
@@ -12,6 +24,11 @@
         }
     },
     "rules": {
+        "indent": "off",
+        "@typescript-eslint/indent": ["error", 2],
+        "simple-import-sort/imports": "error",
+
+        "@typescript-eslint/no-explicit-any": "warn",
         "react/prefer-stateless-function": "error",
         "react/button-has-type": "error",
         "react/no-unused-prop-types": "error",
@@ -20,7 +37,6 @@
         "react/no-children-prop": "error",
         "react/no-danger": "error",
         "react/no-danger-with-children": "error",
-        "react-refresh/only-export-components": "warn",
         "react/no-unstable-nested-components": [
             "error",
             {
@@ -68,11 +84,52 @@
         "react/no-typos": "warn",
         "react/display-name": "warn",
         "react/self-closing-comp": "warn",
-        "react/jsx-sort-props": "warn",
+        "sort-keys-fix/sort-keys-fix": "warn",
+        // "react/jsx-sort-props": [
+        //     "error",
+        //     {
+        //         "callbacksLast": true,
+        //         "shorthandFirst": true,
+        //         "ignoreCase": false,
+        //         "shorthandLast": true,
+        //         "noSortAlphabetically": false,
+        //         "reservedFirst": true,
+        //         "locale": "auto"
+        //     }
+        // ],
+        "sort-destructure-keys/sort-destructure-keys": [2, {"caseSensitive": false}],
+        "react/jsx-sort-props": [
+            2,
+            {
+                "callbacksLast": true,
+                "shorthandFirst": false,
+                "shorthandLast": true,
+                "ignoreCase": true,
+                "noSortAlphabetically": false
+            }
+            ],
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                {
+                    "pattern": "react",
+                    "group": "external",
+                    "position": "before"
+                }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "always",
+                "alphabetize": {
+                "order": "asc",
+                "caseInsensitive": true
+                }
+            }
+        ],
         "react/react-in-jsx-scope": "off",
         "react/jsx-one-expression-per-line": "off",
         "react/prop-types": "off",
-        // Naming Conventions and Filename Rules
         "@typescript-eslint/naming-convention": [
             "warn",
             {
@@ -118,52 +175,52 @@
             }
         ],
         "import/no-default-export": "error",
-        //TS/JSDoc
-        "jsdoc/require-throws": "error",
-        "jsdoc/check-indentation": "warn",
-        "jsdoc/no-blank-blocks": "warn",
-        "jsdoc/require-asterisk-prefix": "warn",
-        "jsdoc/require-description": "warn",
-        "jsdoc/sort-tags": "warn",
-        "jsdoc/check-syntax": "warn",
-        "jsdoc/tag-lines": [
-            "warn",
-            "never",
-            {
-                "startLines": 1
-            }
-        ],
-        "jsdoc/require-param": [
-            "warn",
-            {
-                "checkDestructuredRoots": false
-            }
-        ],
-        "jsdoc/require-jsdoc": [
-            "warn",
-            {
-                "publicOnly": true,
-                "require": {
-                    "FunctionDeclaration": true,
-                    "FunctionExpression": true,
-                    "ArrowFunctionExpression": true,
-                    "ClassDeclaration": true,
-                    "ClassExpression": true,
-                    "MethodDefinition": true
-                },
-                "contexts": [
-                    "VariableDeclaration",
-                    "TSTypeAliasDeclaration",
-                    // Encourage documenting React prop types
-                    "TSPropertySignature"
-                ],
-                "enableFixer": true
-            }
-        ],
-        // tsdoc checks this syntax instead
-        "jsdoc/require-hyphen-before-param-description": "off",
-        "jsdoc/require-returns": "off",
-        "tsdoc/syntax": "warn",
+        // //TS/JSDoc
+        // "jsdoc/require-throws": "error",
+        // "jsdoc/check-indentation": "warn",
+        // "jsdoc/no-blank-blocks": "warn",
+        // "jsdoc/require-asterisk-prefix": "warn",
+        // "jsdoc/require-description": "warn",
+        // "jsdoc/sort-tags": "warn",
+        // "jsdoc/check-syntax": "warn",
+        // "jsdoc/tag-lines": [
+        //     "warn",
+        //     "never",
+        //     {
+        //         "startLines": 1
+        //     }
+        // ],
+        // "jsdoc/require-param": [
+        //     "warn",
+        //     {
+        //         "checkDestructuredRoots": false
+        //     }
+        // ],
+        // "jsdoc/require-jsdoc": [
+        //     "warn",
+        //     {
+        //         "publicOnly": true,
+        //         "require": {
+        //             "FunctionDeclaration": true,
+        //             "FunctionExpression": true,
+        //             "ArrowFunctionExpression": true,
+        //             "ClassDeclaration": true,
+        //             "ClassExpression": true,
+        //             "MethodDefinition": true
+        //         },
+        //         "contexts": [
+        //             "VariableDeclaration",
+        //             "TSTypeAliasDeclaration",
+        //             // Encourage documenting React prop types
+        //             "TSPropertySignature"
+        //         ],
+        //         "enableFixer": true
+        //     }
+        // ],
+        // // tsdoc checks this syntax instead
+        // "jsdoc/require-hyphen-before-param-description": "off",
+        // "jsdoc/require-returns": "off",
+        // "tsdoc/syntax": "warn",
         //Arrow Function Styles
         "prefer-arrow-functions/prefer-arrow-functions": [
             "warn",

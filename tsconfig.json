@@ -21,6 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/E-Books/Topics.tscs.tsrc/E-Books/Topics.ts/Topics.ts"  ]
+    "src/**/*"
+ ]
 }
