@@ -1,13 +1,11 @@
+import React from "react"
 import './EBooksMainPage.css'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
 import { useStoreType } from '../../hooks/useStoreType';
-import { useBooks } from '../../hooks/useBooks';
 import { BookObject } from '../../types/books';
 import { updateSelectedBookIdState } from '../Slicer/eBookDetialSlice';
 import { FcLike, } from "react-icons/fc";
 import { CiHeart } from "react-icons/ci";
-import { updateBookSlicerState, updateFavoveritBooksList } from '../Slicer/eBooksSlice';
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
@@ -18,7 +16,7 @@ import { BsFillCartDashFill } from "react-icons/bs";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import Modal from '../../components/UI/Modal';
 import BookDetail from '../DetailPage/BookDetail';
-
+import { updateFavoveritBooksList,updateBookSlicerState } from '../Slicer/EBooksSlice';
 
 const EBooksMainPage = () => {
 
@@ -29,7 +27,6 @@ const EBooksMainPage = () => {
     
 
     const dispatch = useDispatch()
-    const { isDataLoading } = useBooks()
 
     // Will update the eBooks slicer to favoverit Books
     useEffect(() => {

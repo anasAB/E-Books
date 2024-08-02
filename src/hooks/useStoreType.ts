@@ -1,6 +1,5 @@
-
+import { IInitialState } from './../E-Books/Slicer/EBooksSlice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { IInitialState } from '../E-Books/Slicer/eBooksSlice';
 import { IBookDetail } from '../E-Books/Slicer/eBookDetialSlice';
 import { IBookCart } from '../E-Books/Slicer/cartSlice';
 

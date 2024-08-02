@@ -4,7 +4,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:react/jsx-runtime",
+        "plugin:react/jsx-runtime"
     ],
     "settings": {
         "react": {
@@ -20,7 +20,7 @@
         "react/no-children-prop": "error",
         "react/no-danger": "error",
         "react/no-danger-with-children": "error",
-        "react-refresh/only-export-components": "warn",
+        "react-refresh/only-export-components": "error",
         "react/no-unstable-nested-components": [
             "error",
             {

@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux'
 import './header.css'
 import { useStoreType } from '../../hooks/useStoreType';
-import { updateShowFavoveritBooks } from '../Slicer/eBooksSlice';
 import { BsCart } from "react-icons/bs";
 import { FaCartShopping } from "react-icons/fa6";
+import { updateShowFavoveritBooks } from '../Slicer/EBooksSlice';
+
 
 const Header = () => {
 
